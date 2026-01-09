@@ -1,0 +1,57 @@
+<div class="feature-list" style="display: flex; gap: 20px;">
+  
+  {% for block in section.blocks %}
+    <div class="feature-item" {{ block.shopify_attributes }}>
+      <h3>{{ block.settings.feature_title }}</h3>
+      <p>{{ block.settings.feature_desc }}</p>
+    </div>
+  {% endfor %}
+
+</div>
+
+{% schema %}
+{
+  "name": "Feature List",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_heading",
+      "label": "Section Heading",
+      "default": "Our Features"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text_block",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "text",
+          "id": "feature_title",
+          "label": "Feature Title",
+          "default": "Free Shipping"
+        },
+        {
+          "type": "textarea",
+          "id": "feature_desc",
+          "label": "Description",
+          "default": "We ship worldwide for free."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature List",
+      "blocks": [
+        {
+          "type": "text_block"
+        },
+        {
+          "type": "text_block"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
