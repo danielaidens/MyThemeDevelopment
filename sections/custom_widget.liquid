@@ -1,0 +1,30 @@
+<div style="background-color: {{ section.settings.bg_color }}; padding: 20px;">
+  
+  <h1>{{ section.settings.heading_text }}</h1>
+
+</div>
+
+{% schema %}
+{
+  "name": "My Custom Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading_text",
+      "label": "Heading Text",
+      "default": "Hello World"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "My Custom Banner"
+    }
+  ]
+}
+{% endschema %}

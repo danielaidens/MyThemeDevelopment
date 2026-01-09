@@ -1,0 +1,109 @@
+<div style="padding: 20px; font-family: sans-serif;">
+
+  <h1>📸 Product Gallery System</h1>
+
+  {% assign my_product = all_products['madison'] %}
+
+  {% if my_product.title != blank %}
+
+    <div style="border: 2px solid #333; padding: 10px; text-align: center; margin-bottom: 20px;">
+      <h3>Featured Image</h3>
+      <img 
+        src="{{ my_product.featured_image | image_url: width: 500 }}" 
+        alt="{{ my_product.featured_image.alt }}"
+        width="500"
+        height="500"
+        style="width: 100%; max-width: 300px; height: auto; border: 1px solid #ddd;"
+      >
+    </div>
+
+    <div style="background: #f9f9f9; padding: 15px;">
+      <h3>Gallery (Total: {{ my_product.images.size }})</h3>
+      
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        
+        {% for image in my_product.images %}
+          
+          <div style="border: 1px solid #ccc; padding: 5px; background: white;">
+            <img 
+              src="{{ image | image_url: width: 100, height: 100, crop: 'center' }}" 
+              alt="{{ image.alt }}"
+              width="100"
+              height="100"
+              style="object-fit: cover;"
+            >
+            <br>
+            <small>Img #{{ forloop.index }}</small>
+          </div>
+
+        {% endfor %}
+      </div>
+    </div>
+
+  {% else %}
+    <p style="color: red;">Product Handle check karo!</p>
+  {% endif %}
+
+</div>
+
+
+<div style="padding: 40px; font-family: sans-serif; display: flex; justify-content: center;">
+
+  {% assign my_product = all_products['madison'] %} {% if my_product.featured_image %}
+    
+    <div class="zoom-container" style="
+      width: 400px; 
+      height: 400px; 
+      overflow: hidden; 
+      border: 1px solid #ccc;
+      cursor: crosshair; /* Mouse icon change */
+    ">
+      
+      <img 
+        id="zoom-img"
+        src="{{ my_product.featured_image | image_url: width: 1000 }}" 
+        alt="{{ my_product.title }}"
+        width="1000"
+        height="1000"
+        style="
+          width: 100%; 
+          height: 100%; 
+          object-fit: cover; 
+          transition: transform 0.1s ease; /* Smooth movement */
+          display: block;
+        "
+      >
+    </div>
+
+  {% else %}
+    <p>❌ Product handle sahi dalo bro!</p>
+  {% endif %}
+
+</div>
+
+<script>
+  const container = document.querySelector('.zoom-container');
+  const img = document.getElementById('zoom-img');
+
+  if (container && img) {
+    
+    container.addEventListener("mousemove", function(e) {
+      // 1. Container ki exact position nikalo screen par
+      const rect = container.getBoundingClientRect();
+
+      // 2. Mouse ka distance nikalo Container ke border se
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      // 3. Image ko bolo: "Jahan mouse hai wahan se zoom karo"
+      img.style.transformOrigin = `${x}px ${y}px`;
+      img.style.transform = "scale(2.5)"; 
+    });
+
+    // Jab mouse hatayein to wapis normal ho jaye
+    container.addEventListener("mouseleave", function() {
+      img.style.transformOrigin = "center center";
+      img.style.transform = "scale(1)";
+    });
+  }
+</script>
