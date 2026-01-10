@@ -8,6 +8,23 @@
     "theme_support_url": "https://support.shopify.com/"
   },
   {
+    "name": "Brand Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "primary_brand_color",
+        "label": "Primary Color",
+        "default": "#ff0000"
+      },
+      {
+        "type": "color",
+        "id": "secondary_brand_color",
+        "label": "Secondary Color",
+        "default": "#000000"
+      }
+    ]
+  },
+  {
     "name": "t:names.logo_and_favicon",
     "settings": [
       {
